@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.android.politicalpreparedness.network.models.Election
 
 @Dao
@@ -12,7 +13,7 @@ interface ElectionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertElection(election: Election)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertElectionList(electionList: List<Election>)
 
     @Query("select * from election_table order by electionDay asc")
@@ -23,6 +24,9 @@ interface ElectionDao {
 
     @Query("select * from election_table where isFavorite = 1")
     fun getFavoriteElections(): LiveData<List<Election>>
+
+    @Update
+    fun updateElection(election: Election)
 
     @Query("delete from election_table where id = :electionId")
     fun deleteElection(electionId: Int)

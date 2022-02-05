@@ -17,5 +17,5 @@ data class Election(
     @ColumnInfo(name = "electionDay") val electionDay: Date,
     @Embedded(prefix = "division_")
     @Json(name = "ocdDivisionId") val division: Division,
-    @ColumnInfo(name = "isFavorite") val isFavorite: Boolean = false
+    @ColumnInfo(name = "isFavorite") var isFavorite: Boolean = false
 ) : Parcelable

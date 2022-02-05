@@ -40,6 +40,7 @@ class ElectionsFragment : Fragment() {
         }
 
         binding.upcomingElectionRV.adapter = electionsAdapter
+        binding.savedElectionRV.adapter = favoriteElectionsAdapter
 
         return binding.root
     }
@@ -51,7 +52,7 @@ class ElectionsFragment : Fragment() {
     private fun setObservers() {
         viewModel.elections.observe(viewLifecycleOwner) {
             electionsAdapter.submitList(it)
-            binding.loadingProgressBar.isVisible = it.isNotEmpty()
+            binding.loadingProgressBar.isVisible = it.isEmpty()
         }
 
         viewModel.favoriteElections.observe(viewLifecycleOwner) {

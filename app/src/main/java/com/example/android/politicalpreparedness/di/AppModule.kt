@@ -11,7 +11,7 @@ import org.koin.dsl.module
 
 val appModule = module {
     viewModel { ElectionsViewModel(get(), get()) }
-    viewModel { VoterInfoViewModel() }
+    viewModel { VoterInfoViewModel(get(), get()) }
     viewModel { RepresentativeViewModel() }
     single { ElectionDatabase.getInstance(androidContext()) }
     single { ElectionRepository(get()) }

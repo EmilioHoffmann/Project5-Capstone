@@ -5,5 +5,9 @@
     <string name="upcoming_elections">Upcoming elections</string>
 
     <string name="election_date_place_holder">%s %s %s</string>
-    <string name="request_error_message">Ops... We are having some issues requesting the elections data, please try again later.</string>
+    <string name="request_error_message">Ops… We are having some issues requesting the elections data, please try again later.</string>
+    <string name="request_unavailable_data_message">The information for this election is unavailable</string>
+    <string name="ballot_information">Ballot information</string>
+    <string name="voting_locations">Voting Locations</string>
+    <string name="election_information">Election Information</string>
 </resources>
