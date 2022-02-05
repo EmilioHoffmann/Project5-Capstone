@@ -5,15 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
 
 class VoterInfoFragment : Fragment() {
+
+    private var _binding: FragmentVoterInfoBinding? = null
+    private val binding
+        get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
+    ): View {
+        _binding = FragmentVoterInfoBinding.inflate(layoutInflater)
+        binding.lifecycleOwner = this
         // TODO: Add ViewModel values and create ViewModel
 
         // TODO: Add binding values
@@ -27,6 +33,7 @@ class VoterInfoFragment : Fragment() {
 
         // TODO: Handle save button UI state
         // TODO: cont'd Handle save button clicks
+        return binding.root
     }
 
     // TODO: Create method to load URL intents
