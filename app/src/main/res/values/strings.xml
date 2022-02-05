@@ -4,6 +4,6 @@
     <string name="find_my_representatives">Find my representatives</string>
     <string name="upcoming_elections">Upcoming elections</string>
 
-    <!-- TODO: Add necessary string values -->
-
+    <string name="election_date_place_holder">%s %s %s</string>
+    <string name="request_error_message">Ops... We are having some issues requesting the elections data, please try again later.</string>
 </resources>

@@ -15,6 +15,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "ELECTION_API_KEY", "\"AIzaSyATYtR8X0F9rIl7smzm-G_8wbB7BgmhBYU\""
     }
 
     buildTypes {
@@ -64,6 +65,8 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit: $version_retrofit"
     implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$version_retrofit_coroutines_adapter"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.3"
+    implementation "com.github.haroldadmin:NetworkResponseAdapter:4.2.2"
 
     // Moshi
     implementation "com.squareup.moshi:moshi:$version_moshi"

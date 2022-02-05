@@ -4,16 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
+import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
+import com.example.android.politicalpreparedness.network.models.Election
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ElectionsFragment : Fragment() {
-    private val viewModel: VoterInfoViewModel by viewModels()
+    private val viewModel: ElectionsViewModel by viewModel()
 
     private var _binding: FragmentElectionBinding? = null
     private val binding
         get() = _binding!!
+
+    private lateinit var electionsAdapter: ElectionListAdapter
+    private lateinit var favoriteElectionsAdapter: ElectionListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,17 +29,45 @@ class ElectionsFragment : Fragment() {
     ): View {
         _binding = FragmentElectionBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
-        // TODO: Add ViewModel values and create ViewModel
+        setObservers()
 
-        // TODO: Add binding values
+        electionsAdapter = ElectionListAdapter {
+            navigateToElectionDetail(it)
+        }
 
-        // TODO: Link elections to voter info
+        favoriteElectionsAdapter = ElectionListAdapter {
+            navigateToElectionDetail(it)
+        }
 
-        // TODO: Initiate recycler adapters
+        binding.upcomingElectionRV.adapter = electionsAdapter
 
-        // TODO: Populate recycler adapters
         return binding.root
     }
 
-    // TODO: Refresh adapters when fragment loads
+    private fun navigateToElectionDetail(election: Election) {
+        findNavController().navigate(ElectionsFragmentDirections.toVoterInfoFragment(election))
+    }
+
+    private fun setObservers() {
+        viewModel.elections.observe(viewLifecycleOwner) {
+            electionsAdapter.submitList(it)
+            binding.loadingProgressBar.isVisible = it.isNotEmpty()
+        }
+
+        viewModel.favoriteElections.observe(viewLifecycleOwner) {
+            favoriteElectionsAdapter.submitList(it)
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.loadingProgressBar.isVisible = it
+        }
+
+        viewModel.requestError.observe(viewLifecycleOwner) {
+            if (it && viewModel.elections.value?.isEmpty() == true) {
+                binding.electionsContainer.isVisible = false
+                binding.errorMessage.isVisible = true
+                binding.loadingProgressBar.isVisible = false
+            }
+        }
+    }
 }
