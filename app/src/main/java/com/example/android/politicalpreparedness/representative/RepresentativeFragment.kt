@@ -51,10 +51,6 @@ class RepresentativeFragment : Fragment() {
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var enableLocationRequestLauncher: ActivityResultLauncher<IntentSenderRequest>
 
-    companion object {
-        // TODO: Add Constant for Location request
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -66,6 +62,11 @@ class RepresentativeFragment : Fragment() {
         setListeners()
         setObservers()
         binding.representativesRV.adapter = representativeListAdapter
+//        binding.representativesRV.layoutManager = object : LinearLayoutManager(requireContext()) {
+//            override fun canScrollVertically(): Boolean {
+//                return representativeListAdapter.itemCount != 0
+//            }
+//        }
         binding.viewModel = viewModel
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -129,6 +130,7 @@ class RepresentativeFragment : Fragment() {
     private fun setObservers() {
         viewModel.representatives.observe(viewLifecycleOwner) {
             representativeListAdapter.submitList(it)
+
             binding.emptyListMessage.isVisible = it.isEmpty()
         }
 
