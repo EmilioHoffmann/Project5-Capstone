@@ -20,7 +20,7 @@ class LaunchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLaunchBinding.inflate(inflater)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
 
         binding.representativeButton.setOnClickListener { navToRepresentatives() }
         binding.upcomingButton.setOnClickListener { navToElections() }

@@ -26,7 +26,7 @@ class VoterInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentVoterInfoBinding.inflate(layoutInflater)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         setObservers()
         val electionClicked = VoterInfoFragmentArgs.fromBundle(requireArguments()).electionData
 

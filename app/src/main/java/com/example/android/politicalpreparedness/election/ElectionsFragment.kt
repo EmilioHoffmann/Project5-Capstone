@@ -28,7 +28,7 @@ class ElectionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentElectionBinding.inflate(layoutInflater)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         setObservers()
 
         electionsAdapter = ElectionListAdapter {
