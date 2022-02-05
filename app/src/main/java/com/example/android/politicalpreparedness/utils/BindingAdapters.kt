@@ -1,7 +1,11 @@
 package com.example.android.politicalpreparedness.utils
 
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.android.politicalpreparedness.R
 import java.time.Instant
 import java.time.ZoneId
@@ -40,4 +44,14 @@ fun TextView.showElectionDate(date: Date?) {
             .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() },
         localDate.year.toString()
     )
+}
+
+@BindingAdapter("app:loadRoundImage")
+fun ImageView.loadRoundImage(imageUrl: String?) {
+    val uri = imageUrl?.toUri()?.buildUpon()?.scheme("https")?.build()
+    Glide.with(context).load(uri)
+        .transform(CircleCrop())
+        .error(R.drawable.ic_profile)
+        .placeholder(R.drawable.ic_profile)
+        .into(this)
 }

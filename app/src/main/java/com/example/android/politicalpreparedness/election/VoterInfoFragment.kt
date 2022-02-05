@@ -109,6 +109,4 @@ class VoterInfoFragment : Fragment() {
             }
         }
     }
-
-    // TODO: Create method to load URL intents
 }

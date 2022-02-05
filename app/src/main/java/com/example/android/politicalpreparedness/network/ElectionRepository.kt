@@ -2,6 +2,7 @@ package com.example.android.politicalpreparedness.network
 
 import androidx.lifecycle.MutableLiveData
 import com.example.android.politicalpreparedness.database.ElectionDatabase
+import com.example.android.politicalpreparedness.network.models.RepresentativeResponse
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
 import com.example.android.politicalpreparedness.utils.SingleLiveEvent
 import com.haroldadmin.cnradapter.NetworkResponse
@@ -36,6 +37,12 @@ class ElectionRepository(private val database: ElectionDatabase) {
     ): NetworkResponse<VoterInfoResponse, ResponseBody> {
         return withContext(Dispatchers.IO) {
             return@withContext CivicsApi.retrofitService.getVoterInfo(divisionState, electionID)
+        }
+    }
+
+    suspend fun getRepresentatives(address: String): NetworkResponse<RepresentativeResponse, ResponseBody> {
+        return withContext(Dispatchers.IO) {
+            return@withContext CivicsApi.retrofitService.getRepresentatives(address)
         }
     }
 }

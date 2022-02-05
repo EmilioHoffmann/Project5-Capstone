@@ -8,9 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Address
+import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -20,29 +23,57 @@ class RepresentativeFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    private val viewModels: RepresentativeViewModel by viewModel()
+    private val viewModel: RepresentativeViewModel by viewModel()
+
+    private val representativeListAdapter = RepresentativeListAdapter()
 
     companion object {
         // TODO: Add Constant for Location request
     }
-
-    // TODO: Declare ViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentRepresentativeBinding.inflate(layoutInflater)
-        // TODO: Establish bindings
-
-        // TODO: Define and assign Representative adapter
-
-        // TODO: Populate Representative adapter
-
-        // TODO: Establish button listeners for field and location search
+        binding.lifecycleOwner = this
+        setListeners()
+        setObservers()
+        binding.representativesRV.adapter = representativeListAdapter
+        binding.viewModel = viewModel
         return binding.root
+    }
+
+    private fun setListeners() {
+        binding.searchButton.setOnClickListener {
+            viewModel.getRepresentatives()
+        }
+
+        binding.locationButton.setOnClickListener {
+        }
+
+        binding.state.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                viewModel.state.value = binding.state.selectedItem as String
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                viewModel.state.value = binding.state.selectedItem as String
+            }
+        }
+    }
+
+    private fun setObservers() {
+        viewModel.representatives.observe(viewLifecycleOwner) {
+            representativeListAdapter.submitList(it)
+            binding.emptyListMessage.isVisible = it.isEmpty()
+        }
     }
 
     override fun onRequestPermissionsResult(
