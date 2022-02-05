@@ -3,6 +3,7 @@ package com.example.android.politicalpreparedness
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.politicalpreparedness.databinding.ActivityMainBinding
+import org.koin.core.Koin
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

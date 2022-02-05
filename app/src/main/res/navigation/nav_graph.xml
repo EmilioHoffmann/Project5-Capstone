@@ -10,7 +10,7 @@
         android:id="@+id/launchFragment"
         android:name="com.example.android.politicalpreparedness.launch.LaunchFragment"
         android:label="fragment_launch"
-        tools:layout="@layout/fragment_launch" >
+        tools:layout="@layout/fragment_launch">
         <action
             android:id="@+id/toElectionsFragment"
             app:destination="@id/electionsFragment" />
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/representativeFragment"
-        android:name="com.example.android.politicalpreparedness.representative.DetailFragment"
+        android:name="com.example.android.politicalpreparedness.representative.RepresentativeFragment"
         android:label="fragment_representative"
         tools:layout="@layout/fragment_representative" />
 
@@ -42,6 +42,10 @@
         android:id="@+id/electionsFragment"
         android:name="com.example.android.politicalpreparedness.election.ElectionsFragment"
         android:label="fragment_elections"
-        tools:layout="@layout/fragment_election" />
+        tools:layout="@layout/fragment_election">
+        <action
+            android:id="@+id/toVoterInfoFragment"
+            app:destination="@id/voterInfoFragment" />
+    </fragment>
 
 </navigation>
